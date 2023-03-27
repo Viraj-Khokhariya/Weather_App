@@ -17,5 +17,4 @@ jobs:
         python-version: "3.11"
     - name: program start
       run: |
-  
         python Weather_app.py
