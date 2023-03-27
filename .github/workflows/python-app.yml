@@ -1,31 +1,28 @@
-name: Python App
+name: Python application
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.11
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Run the app
-        run: |
-          # Start the virtual display manager
-          xvfb-run --auto-servernum --server-args='-screen 0 600X720' python Weather.py
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install xvfbwrapper
+    - name: Run script with xvfb
+      run: |
+        export DISPLAY=:99.0
+        Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
+        python Weather.py
