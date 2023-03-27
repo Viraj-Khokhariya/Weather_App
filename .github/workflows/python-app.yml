@@ -23,4 +23,4 @@ jobs:
           pip install -r requirements.txt
       - name: Run the app
         run: |
-          python Weather app.py
+          python Weather.py
