@@ -34,4 +34,4 @@ jobs:
 
     - name: Run tests
       run: |
-        xvfb-run pytest tests/
+        xvfb-run pytest Weather.py/
