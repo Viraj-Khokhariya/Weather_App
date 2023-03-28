@@ -25,11 +25,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        
-    - name: Install pytest
+
+    - name: Install pytest and Xvfb
       run: |
+        apt-get update
+        apt-get install -y xvfb
         pip install pytest
 
     - name: Run tests
       run: |
-        pytest Weather.py/
+        xvfb-run pytest tests/
